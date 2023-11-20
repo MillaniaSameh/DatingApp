@@ -17,8 +17,8 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 // app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200/"));
 
-// app.UseCors(config => config.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
-app.UseCors(config => config.WithOrigins("http://localhost:64982").AllowAnyMethod().AllowAnyHeader());
+app.UseCors(config => config.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+// app.UseCors(config => config.WithOrigins("http://localhost:62788").AllowAnyMethod().AllowAnyHeader());
 
 app.UseAuthentication();
 app.UseAuthorization();
