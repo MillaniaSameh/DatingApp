@@ -1,6 +1,8 @@
 using API.Data;
+using API.Entities;
 using API.Extensions;
 using API.Middleware;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +19,8 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 // app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200/"));
 
-app.UseCors(config => config.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
-// app.UseCors(config => config.WithOrigins("http://localhost:59079").AllowAnyMethod().AllowAnyHeader());
+// app.UseCors(config => config.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+app.UseCors(config => config.WithOrigins("http://localhost:64870").AllowAnyMethod().AllowAnyHeader());
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -30,8 +32,11 @@ var services = scope.ServiceProvider;
 try
 {
   var context = services.GetRequiredService<DataContext>();
+  var userManager = services.GetRequiredService<UserManager<AppUser>>();
+  var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+
   await context.Database.MigrateAsync();
-  await Seed.SeedUsers(context);
+  await Seed.SeedUsers(userManager, roleManager);
 }
 catch (Exception ex)
 {
