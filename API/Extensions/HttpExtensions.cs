@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using API.Helpers;
 
-namespace API;
+namespace API.Extensions;
 
 public static class HttpExtensions
 {
